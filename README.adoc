@@ -1,5 +1,6 @@
 = CopyTools
-jnorthr <james.b.northrop@googlemail.com>, v1.0
+jnorthr <james.b.northrop@googlemail.com>
+v1.0
 :icons: font
 
 ''''
