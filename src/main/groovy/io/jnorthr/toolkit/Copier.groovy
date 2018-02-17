@@ -115,6 +115,8 @@ public class Copier
 
         ck.copy("Hi from Copier.groovy");
         // writeToClipboard(textArea.getText(), null);
+        
+        assert "Hi from Copier.groovy" == ck.paste();
 
         println "--- the end---"
     } // end of main 

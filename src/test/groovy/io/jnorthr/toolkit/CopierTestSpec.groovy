@@ -54,7 +54,7 @@ Conceptually, a feature method consists of four phases:
   // Feature Methods
 
   // First Test
-  def "1st Test: Setup Copier for default copy to system clipboard"() {
+  def "1st Test: Setup Copier for copy to system clipboard"() {
     given:
   		println "1st Test: Use Copier to put text on system clipboard"
  
@@ -67,4 +67,18 @@ Conceptually, a feature method consists of four phases:
     	true == ck!=null;
   } // end of test
 
+
+  // Second Test
+  def "2nd Test: Confirm Copier of text to system clipboard is available from paste() method"() {
+    given:
+  		println "2nd Test: Use Copier to put text on system clipboard then use paste to confirm it"
+ 
+    when:
+      ck.copy("copied by CopierTestSpec");
+
+    then:    
+		// Asserts are implicit and not need to be stated.
+		"copied by CopierTestSpec" == ck.paste();
+  } // end of test
+  
 } // end of spec
