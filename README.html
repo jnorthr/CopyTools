@@ -506,11 +506,35 @@ Travis Build Status for Master Branch: <span class="image"><a class="image" href
 <hr>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_usage_notes">Usage Notes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Copier.groovy source has methods to interact with the System Clipboard of most O/S types.</p>
+</div>
+<div class="listingblock">
+<div class="title">Method Layout</div>
+<div class="content">
+<pre>public void setClipboard(String s)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is a class method to do the deed. Call this method with a Jave/Groovy or JVM language String type to place that string on to the System Clipboard of the operating system.</p>
+</div>
+<div class="listingblock">
+<div class="title">Method Sample</div>
+<div class="content">
+<pre>Copier ck = new Copier();
+       ck.setClipboard("Hi from me");</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2018-02-17 16:22:40 IST
+Last updated 2018-02-17 16:31:35 IST
 </div>
 </div>
 </body>

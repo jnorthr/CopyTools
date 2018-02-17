@@ -30,3 +30,20 @@ A Gradle project for Groovy users who need utility code to copy text strings to 
  . After prior step completes, examine *CopyTools/* folder to find the */build/* folder with test results
 
 ''''
+
+== Usage Notes
+
+The Copier.groovy source has methods to interact with the System Clipboard of most O/S types.
+
+.Method Layout
+----
+public void setClipboard(String s) 
+----
+
+This is a class method to do the deed. Call this method with a Jave/Groovy or JVM language String type to place that string on to the System Clipboard of the operating system.
+
+.Method Sample
+----
+Copier ck = new Copier();
+       ck.setClipboard("Hi from me");
+----
