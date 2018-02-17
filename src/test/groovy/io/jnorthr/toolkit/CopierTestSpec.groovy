@@ -22,6 +22,7 @@ class CopierTestSpec extends Specification
   // run before every feature method
   def setup() 
   { 
+      ck = new Copier();
   }          
 
   // run after every feature method
@@ -58,7 +59,6 @@ Conceptually, a feature method consists of four phases:
   		println "1st Test: Use Copier to put text on system clipboard"
  
     when:
-  		ck = new Copier();
       ck.setClipboard("set by CopierTestSpec");
 
     then:
