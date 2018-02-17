@@ -50,7 +50,7 @@ public class Copier
 
 
     /**
-     * Method to place provided String of text on the System Clipboard for most operatng systems
+     * Method to retrieve a String of text from the System Clipboard for most operatng systems
      *
      * @return text currently held on System Clipboard
      */
