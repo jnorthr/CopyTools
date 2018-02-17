@@ -1,0 +1,31 @@
+= CopyTools
+jnorthr <james.b.northrop@googlemail.com>, v1.0
+:icons: font
+
+''''
+
+IMPORTANT: Travis Build Status for Master Branch: image:https://img.shields.io/travis/jnorthr/CopyTools.svg[Build Status (Travis CI), link=https://travis-ci.org/jnorthr/CopyTools]
+
+''''
+
+== Purpose
+
+A Gradle project for Groovy users who need utility code to copy text strings to system clipboards. Clone includes gradle build tool wrapper and folder structure like maven/gradle so you don't need an installed gradle build tool.
+ 
+.Pre-requisites
+ . Working internet connection
+ . Installed Git client to copy/clone this repo
+ . Ability to use terminal console
+
+.Steps  
+ . Open terminal console
+ . Change directory \( cd \) into target folder location
+ . Run this command to create a folder and copy down all the pieces :
+
+   git clone https://github.com/jnorthr/CopyTools.git
+
+ . *cd CopyTools/*
+ . *./gradlew* runs defined tasks to build and test code samples
+ . After prior step completes, examine *CopyTools/* folder to find the */build/* folder with test results
+
+''''

@@ -1,0 +1,51 @@
+/*
+ * This build file was copied by 'jim' at '18/2/18 15:18 PM' with Gradle 4.5 from Tools script in Google Drive
+ */
+
+// Apply the plugin to add support for Groovy
+apply plugin: 'groovy'
+
+defaultTasks 'clean','build', 'test', 'groovydoc', 'runCopier' 
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    jcenter()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.13"
+    runtime "org.codehaus.groovy:groovy-all:2.4.13"
+
+    // Declare the dependency for your favourite test framework you want to use in your tests.
+    // TestNG is also supported by the Gradle Test task. Just change the
+    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
+    // 'test.useTestNG()' to your build script.
+    testCompile 'junit:junit:4.12'
+    
+    // Spock Framework basic dependencies:
+    testCompile "org.codehaus.groovy:groovy-all:2.4.13"
+    // The version have to be compatible with Groovy:
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+ 
+    // Optional dependencies Spock
+    // To use Hamcrest matchers:
+    testCompile "org.hamcrest:hamcrest-core:1.3"
+ 
+    // To mock classes:
+    testRuntime "cglib:cglib-nodep:3.1"
+    // Use with cglib to mock classes without default constructor:
+    testRuntime "org.objenesis:objenesis:2.1"
+}
+
+
+// run config.file existence checker task
+// Feature to confirm a configuration file exists or build a simple one if it does not
+task runCopier(type: JavaExec) {
+    main = "io.jnorthr.toolkit.Copier"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion '4.5'
+}

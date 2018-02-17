@@ -1,0 +1,65 @@
+package io.jnorthr.toolkit;
+
+import groovy.transform.*;
+
+// https://www.developer.com/java/data/how-to-code-java-clipboard-functionality.html
+import java.awt.Toolkit;
+import java.awt.datatransfer.ClipboardOwner
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+
+/*
+ * Feature to copy text to system clipboard
+ */
+public class Copier
+{
+    /** an O/S specific char. as a file path divider */
+    String fs = java.io.File.separator;
+
+    /** an O/S specific location for the user's home folder name */ 
+    String home = System.getProperty("user.home");
+    
+
+    /**
+     * Default constructor builds a tool to interact with the System Clipboard for most operatng systems
+     */
+    public Copier()
+    {
+    } // end of default constructor
+    
+
+    /**
+     * Method to place provided String of text on the System Clipboard for most operatng systems
+     *
+     * @param  text string to copy onto system clipboard
+     * @return void
+     */
+    public void setClipboard(String s) {
+        ClipboardOwner owner = null;
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable transferable = new StringSelection(s);
+        clipboard.setContents(transferable, owner);
+    } // end of method
+        
+    // =============================================================================    
+    /**
+      * The primary method to execute this class. Can be used to test and examine logic and performance issues. 
+      * 
+      * argument is a list of strings provided as command-line parameters. 
+      * 
+      * @param  args a list of possibly zero entries from the command line; first arg[0] if present, is
+      *         taken as a simple file name of a groovy script-structured configuration file;
+      */
+    public static void main(String[] args)
+    {
+        println "Hello from Copier.groovy"
+        Copier ck = new Copier();
+
+        ck.setClipboard("Hi from Copier.groovy");
+        // writeToClipboard(textArea.getText(), null);
+
+        println "--- the end---"
+    } // end of main 
+
+} // end of class
