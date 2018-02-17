@@ -59,7 +59,7 @@ Conceptually, a feature method consists of four phases:
   		println "1st Test: Use Copier to put text on system clipboard"
  
     when:
-      ck.setClipboard("set by CopierTestSpec");
+      ck.copy("set by CopierTestSpec");
 
     then:
     

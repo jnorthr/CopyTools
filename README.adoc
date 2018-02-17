@@ -33,17 +33,35 @@ A Gradle project for Groovy users who need utility code to copy text strings to 
 
 == Usage Notes
 
-The Copier.groovy source has methods to interact with the System Clipboard of most O/S types.
+The *Copier.groovy* source has methods to interact with the System Clipboard of most O/S types.
+
+=== Put text on System Clipboard 
 
 .Method Layout
 ----
-public void setClipboard(String s) 
+public void copy(String s) 
 ----
 
-This is a class method to do the deed. Call this method with a Jave/Groovy or JVM language String type to place that string on to the System Clipboard of the operating system.
+This is a class method to do the deed. Call this method with a Java/Groovy or JVM language _String_ types to place that string on to the System Clipboard of the operating system. Only _String_ copies are supported.
 
 .Method Sample
 ----
 Copier ck = new Copier();
-       ck.setClipboard("Hi from me");
+       ck.copy("Hi from me");
+----
+
+
+=== Get Text from System Clipboard 
+
+.Method Layout
+----
+public String paste() 
+----
+
+This is a class method to do the deed. Call this method with a Java/Groovy or JVM language to receive a _String_ type from System Clipboard of the operating system. Only _String_ copies are supported.
+
+.Method Sample
+----
+Copier ck = new Copier();
+def what = ck.paste();
 ----
