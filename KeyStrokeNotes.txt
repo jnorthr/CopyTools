@@ -1,0 +1,41 @@
+
+// http://www.codejava.net/java-se/swing/setting-shortcut-key-and-hotkey-for-menu-item-and-button-in-swing
+
+JMenuItem menuItemSave = new JMenuItem();
+ 
+Action saveAction = new AbstractAction("Save") {
+ 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Saving...");
+    }
+};
+ 
+saveAction.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_S);
+menuItemSave.setAction(saveAction);
+
+/*
+ the getKeyStroke() method takes two parameters: a character key and a modifier key (Alt, Ctrl or Shift). 
+ You can also pass 0 to indicate no modifier is used. 
+ For example, the following statements set F3 as hotkey for the menu item:
+*/
+KeyStroke keyStrokeToOpen = KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0);
+
+/* ----------------------
+    Set application-wide hotkey for button - The following code snippet sets hotkey F5 for a JButton:
+*/
+JButton button = new JButton(); 
+Action buttonAction = new AbstractAction("Refresh") { 
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        System.out.println("Refreshing...");
+    }
+};
+ 
+String key = "Refresh"; 
+button.setAction(buttonAction); 
+buttonAction.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_R); //  makes 'R' key a mnemonic as well as F5 
+button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), key);
+button.getActionMap().put(key, buttonAction); // ActionMap offers app-wide coverage for F5 key
+
+println "--- the end ---"

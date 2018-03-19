@@ -1,0 +1,199 @@
+//package net.codejava.swing;
+package io.jnorthr.toolkit;
+
+import io.jnorthr.toolkit.Copier;
+import io.jnorthr.toolkit.IO;
+
+import java.awt.FlowLayout;
+import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import java.awt.Color;
+import javax.swing.*;
+
+/**
+ * This Swing program demonstrates setting shortcut key and hotkey for menu
+ * and button.
+ *
+ * https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html for more on keystrokes
+ *
+ * @author www.codejava.net
+ *
+ */
+public class F5 extends JFrame {
+	private JButton f5button = new JButton();
+	public boolean flag = false;
+	
+    /**
+     * Default constructor to build a tool to demonstrate setting shortcut keys,hotkeys for menu and buttons
+     */
+	public F5() throws HeadlessException {
+		super("F5");
+		//makeMenu();
+		makeButton();
+		//add(createToolBar(),"North"); //, new FlowLayout(FlowLayout.TRAILING));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(120, 250);
+		setLocationRelativeTo(null);
+	}
+	
+/*
+	private void makeMenu() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menuFile = new JMenu("File");
+		menuFile.setMnemonic(KeyEvent.VK_F); // does not cause menu dropdown on Apple Mac
+		menuFile.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
+
+		// need Ctrl key pressed while 'O' key to work
+		JMenuItem menuItemOpen = new JMenuItem("Open");
+		menuItemOpen.setMnemonic(KeyEvent.VK_O);
+		menuItemOpen.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
+		
+		KeyStroke keyStrokeToOpen = KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK);
+		menuItemOpen.setAccelerator(keyStrokeToOpen);
+		menuItemOpen.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				System.out.println("Opening File...");
+			}
+		});
+		
+		JMenuItem menuItemSave = new JMenuItem();
+		Action saveAction = new AbstractAction("Save") {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Saving...");
+			}
+		};
+		saveAction.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_S);
+		saveAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+		menuItemSave.setAction(saveAction);
+		
+		// need to read: https://alvinalexander.com/java/java-action-abstractaction-actionlistener
+		JMenu menuExit = new JMenu("Exit");
+		Action exitAction = new AbstractAction("Exit") {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		};
+		
+		//menuExit.setMnemonic('X');
+		exitAction.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_X);
+		exitAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+		menuExit.setAction(exitAction);
+		
+		menuFile.add(menuItemOpen);
+		menuFile.add(menuItemSave);
+
+		menuBar.add(menuFile);
+		menuBar.add(menuExit);
+		//getContentPane().add(createToolBar());
+		//setJToolBar();
+		//setJMenuBar(menuBar);
+	}
+*/	
+
+ /**
+   * Create a JToolBar using our Actions.
+   */
+ /*
+  private JToolBar createToolBar()
+  {
+    // create our toolbar
+    JToolBar toolBar = new JToolBar();  //null, JToolBar.VERTICAL);
+    toolBar.setFloatable(false);
+    toolBar.setRollover(true);
+	toolBar.setBackground(Color.BLUE);
+
+	Action exitAction = new AbstractAction("Exit") 
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			System.exit(0);
+		}
+	};
+
+	exitAction.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_X);
+	exitAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+
+	Action saveAction = new AbstractAction("Save") {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+				System.out.println("Saving...");
+		}
+	};
+
+    // create our toolbar buttons, using the same actions the menuitems use
+    JButton cutButton = new JButton(saveAction);
+    JButton copyButton = new JButton(exitAction);
+	
+	//copyButton.setMnemonic(KeyEvent.VK_X);    
+	String xit = "xit";
+	copyButton.setAction(exitAction);
+	copyButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), xit);
+	copyButton.getActionMap().put(xit, exitAction);
+    
+    // add our buttons to the toolbar
+    toolBar.add(cutButton);
+    toolBar.add(copyButton);
+    return toolBar;
+  }
+*/
+	private void makeButton() {
+		setLayout(new FlowLayout(FlowLayout.CENTER));
+		add(f5button);
+
+		Action myAction = new AbstractAction("F5 Press") {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				System.out.println("\nF5 myAction run when F5 function key pressed ...");
+				if (flag) { getContentPane().setBackground(Color.GREEN); flag=false; }
+				else { getContentPane().setBackground(Color.RED); flag=true; }
+
+		        IO io = new IO();
+        		String tx = io.getPayload("F5");
+        		if (tx.length() > 0)
+        		{
+        			Copier ck = new Copier();
+        			ck.copy(tx);
+        		} // end of if
+			} // end of ActionPerformed
+		};
+
+		String key = "F5";
+		f5button.setAction(myAction); // when button mouse clicked
+		myAction.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_ESCAPE);
+		
+		// when function key pressed, this isdone
+		f5button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), key);
+		f5button.getActionMap().put(key, myAction);
+	} // end of makeButton
+	
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				new F5().setVisible(true);
+			}
+		}
+		);
+	} // end of main
+	
+} // end of class

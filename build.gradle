@@ -4,8 +4,9 @@
 
 // Apply the plugin to add support for Groovy
 apply plugin: 'groovy'
+apply plugin: 'application'
 
-defaultTasks 'clean','build', 'test', 'groovydoc', 'runCopier' 
+defaultTasks 'clean','build', 'test', 'groovydoc', 'runCopier', 'run' 
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -14,8 +15,8 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    compile "org.codehaus.groovy:groovy-all:2.4.13"
-    runtime "org.codehaus.groovy:groovy-all:2.4.13"
+    compile "org.codehaus.groovy:groovy-all:2.4.14"
+    runtime "org.codehaus.groovy:groovy-all:2.4.14"
 
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
@@ -24,7 +25,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     
     // Spock Framework basic dependencies:
-    testCompile "org.codehaus.groovy:groovy-all:2.4.13"
+    testCompile "org.codehaus.groovy:groovy-all:2.4.14"
     // The version have to be compatible with Groovy:
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
  
@@ -38,7 +39,15 @@ dependencies {
     testRuntime "org.objenesis:objenesis:2.1"
 }
 
+// for application plugin
+mainClassName = "io.jnorthr.toolkit.F5"
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'io.jnorthr.toolkit.F5'
+    }
+}
+ 
 // run config.file existence checker task
 // Feature to confirm a configuration file exists or build a simple one if it does not
 task runCopier(type: JavaExec) {
@@ -46,6 +55,41 @@ task runCopier(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
+// run F5 KeystrokeDemo task
+// Feature to demo accelerator keys in Swing
+task runF5(type: JavaExec) {
+    main = "io.jnorthr.toolkit.F5"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// run IO task
+// Feature to get text from a file
+task runIO(type: JavaExec) {
+    main = "io.jnorthr.toolkit.IO"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// run Example task
+// Feature to get text from a file
+task runTrans(type: JavaExec) {
+    main = "io.jnorthr.toolkit.Translator"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// run Mapper task
+// Feature to get text from a file
+task runMapper(type: JavaExec) {
+    main = "io.jnorthr.toolkit.Mapper"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// run TemplateMaker task
+// Feature to get text from a file
+task runTemplateMaker(type: JavaExec) {
+    main = "io.jnorthr.toolkit.TemplateMaker"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 task wrapper(type: Wrapper) {
-    gradleVersion '4.5'
+    gradleVersion '4.6'
 }

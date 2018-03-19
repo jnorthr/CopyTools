@@ -1,0 +1,10 @@
+
+    // =============================================================================    
+    /**
+      * The primary method to execute this class. Can be used to test and examine logic and performance issues. 
+      * 
+      * argument is a list of strings provided as command-line parameters. 
+      * 
+      * @param  args a list of possibly zero entries from the command line; first arg[0] if present, is
+      *         taken as a simple file name of a groovy script-structured configuration file;
+      */

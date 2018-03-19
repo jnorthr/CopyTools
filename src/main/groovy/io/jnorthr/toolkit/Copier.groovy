@@ -25,6 +25,8 @@ public class Copier
     /** an O/S specific location for the user's home folder name */ 
     String home = System.getProperty("user.home");
     
+    /** If we need to println audit log to work, this will be true */ 
+    boolean audit = true;
 
     /**
      * Default constructor builds a tool to interact with the System Clipboard for most operatng systems
@@ -32,7 +34,18 @@ public class Copier
     public Copier()
     {
     } // end of default constructor
-    
+
+
+    /**
+     * A method to print an audit log if audit flag is true
+     *
+     * @param  is text to show user via println
+     * @return void
+     */
+    public void say(String text)
+    {
+        if (audit) { println text; }
+    } // end of method
 
     /**
      * Method to place provided String of text on the System Clipboard for most operatng systems
