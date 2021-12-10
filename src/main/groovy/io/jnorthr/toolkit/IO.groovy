@@ -11,6 +11,9 @@ public class IO
     /** an O/S specific location for the user's home folder name */ 
     String home = System.getProperty("user.home");
 
+    /** an O/S specific location for the user's current project folder name */ 
+    String dir = System.getProperty("user.dir");
+
     /** If we need to println audit log to work, this will be true */ 
     boolean audit = true;
 
@@ -20,6 +23,7 @@ public class IO
     public IO()
     {
     	say "... IO() home=[${home}${fs}]"
+        say "... current project folder name is : "+dir;
     } // end of default constructor
 
     /**
@@ -41,13 +45,18 @@ public class IO
      */
     public String read(String s) 
     {
+        say "... read(${s})"
         boolean present = new File(s).exists();
-        String cb = "";
+        String cb = null;
         if (present)
         {
-        	  say "... found ${s}";
+        	say "... found ${s}";
             cb =  new File(s).getText('UTF-8');
         } // end of if
+        else
+        {
+            cb = "* no file exists for filename '${s}'; "
+        } // end of else
 
         return cb;
     } // end of method
@@ -63,35 +72,37 @@ public class IO
     public String getPayload(String s) 
     {
         String cb = "";
+        boolean ok = s.trim().toUpperCase().endsWith(".F5");
+        if (!ok) { s += ".F5"; }
 
-        say "... IO.getPayload(${s}) looking for ${s}.F5"
+        say "... IO.getPayload(${s}) looking for ${s}"
 
         // first check for this function key file in current folder
-        def f =  new File("${s}.F5")
+        def f =  new File( s );
         boolean present = f.exists();
 
         if (present)
         {
-        	  say "... found ${s}.F5";
+        	say "... found ${s}";
             cb = f.getText('UTF-8');
         } // end of if
         else
         {
-        	say "... did not find ${s}.F5";
+        	say "... did not find ${s}";
 
-        	// then check for this function key file in user's home folder
-        	say "... trying to find:[${home}${fs}${s}.F5]"
-        	f =  new File("${home}${fs}${s}.F5")
+        	// then check for this function key file in user's project folder
+        	say "... trying to find:[${dir}${fs}${s}]"
+        	f =  new File("${dir}${fs}${s}")
         	present = f.exists();
 
         	if (present)
         	{
-	        	say "... found:[${home}${fs}${s}.F5]"
+	        	say "... found:[${dir}${fs}${s}]"
         		cb = f.getText('UTF-8');
         	} // end of if
         	else
         	{
-	        	say "... did not find:[${home}${fs}${s}.F5]"
+	        	say "... did not find:[${dir}${fs}${s}]"
         	}
         } // end of else
 
@@ -107,14 +118,17 @@ public class IO
      * @return true, if write was successful
      */
     public boolean write(String s, String payload) 
-    {
+    {   say "... about to write to file:"+s;
 		def file3 = new File(s)
+        
         boolean present = file3.exists();
+        say "... does file ${s} exist ? "+present;
+
         try
         {
-    		    file3.withWriter('UTF-8') { writer ->
-              writer.write(payload)
-			      }
+            file3.withWriter('UTF-8') { writer ->
+                writer.write(payload)
+			}
             
             present = true;
         } // end of try
@@ -155,6 +169,11 @@ public class IO
         tx = ck.getPayload("F4");
         println "... found F4 ? :"+tx;
         if (tx.size() < 1) { println "... none found for F4"}
+
+
+        tx = ck.getPayload("F15.F5");
+        println "... found F15 ? :"+tx;
+        if (tx.size() < 1) { println "... none found for F15.F5"}
 
         println "--- the end---"
     } // end of main 

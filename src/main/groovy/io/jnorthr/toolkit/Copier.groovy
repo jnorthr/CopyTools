@@ -26,7 +26,7 @@ public class Copier
     String home = System.getProperty("user.home");
     
     /** If we need to println audit log to work, this will be true */ 
-    boolean audit = true;
+    boolean audit = false;
 
     /**
      * Default constructor builds a tool to interact with the System Clipboard for most operatng systems
@@ -51,14 +51,25 @@ public class Copier
      * Method to place provided String of text on the System Clipboard for most operatng systems
      *
      * @param  text string to copy onto system clipboard
-     * @return void
+     * @return boolean is true if copy was successful
      */
-    public void copy(String s) 
+    public boolean copy(String s) 
     {
-        ClipboardOwner owner = null;
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        Transferable transferable = new StringSelection(s);
-        clipboard.setContents(transferable, owner);
+        boolean tf = true;
+        try{
+            ClipboardOwner owner = null;
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            Transferable transferable = new StringSelection(s);
+            clipboard.setContents(transferable, owner);
+            println "... Copier.copy() placed on clipboard:\n${s}"
+        } 
+        catch (def x)
+        { 
+            tf = false;
+            println "... Copier.copy() failed to write to clipboard:\n${x.toString()}"
+        } // end of catch    
+
+        return tf;
     } // end of method
 
 
@@ -71,7 +82,8 @@ public class Copier
     {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         DataFlavor flavor = DataFlavor.stringFlavor;
-        String text = " - could not paste from clipboard"
+        String text = " - could not paste from clipboard";
+
         if (clipboard.isDataFlavorAvailable(flavor)) 
         {
             try 
@@ -93,8 +105,19 @@ public class Copier
 
 
     /**
+     * Duplicate method to retrieve a String of text from the System Clipboard for most operatng systems
+     *
+     * @return text currently held on System Clipboard
+     */
+    public String get() 
+    {
+        return paste();
+    } // end of method
+
+
+    /**
      * Method to copy provided image data on the System Clipboard for most operatng systems
-     * into java variable This method can help handle the "paste" portion of a copy and paste operation.
+     * into java variable. This method can help handle the "paste" portion of a copy and paste operation.
      *
      * @return Image object
      */
@@ -130,6 +153,7 @@ public class Copier
         // writeToClipboard(textArea.getText(), null);
         
         assert "Hi from Copier.groovy" == ck.paste();
+        assert "Hi from Copier.groovy" == ck.get();
 
         println "--- the end---"
     } // end of main 

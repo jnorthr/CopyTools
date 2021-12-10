@@ -9,7 +9,7 @@ import io.jnorthr.toolkit.IO;
 
 class Test3 implements ActionListener
 {
-        def f =     new JFrame();
+        def f = new JFrame();
 
         JButton b1 = new JButton("Clear");
         JButton b2 = new JButton("Copy");

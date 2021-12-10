@@ -1,4 +1,5 @@
 package io.jnorthr.toolkit;
+
 import groovy.transform.*;
 import javax.swing.*
 
@@ -18,7 +19,7 @@ public class Mapper
 
 
     /** If we need to println audit log to work, this will be true */ 
-    boolean audit = true;
+    boolean audit = false;
 
     /** a variable holding Groovy template String */ 
     String tempText = "";
@@ -42,18 +43,29 @@ public class Mapper
         if (audit) { println text; }
     } // end of method
 
-
+    /**
+     * A method to ask user for a value for a requesting parameter
+     *
+     * @param  is text to declare the parameter that needs a data value from user via GUI
+     * @return String  has user declared value to insert in place of this parameter
+     */
     private String prompt(String i) 
     {
         JFrame jframe = new JFrame()
         String ss = "Enter value for {${i}} parameter ";
           String answer = JOptionPane.showInputDialog(jframe, ss)
           jframe.dispose()
-          answer
+          return answer;
     } // end of method
 
-
-
+    /**
+     * A method to decode a string value into a map of key/value parameters so a text String like: "class ${classname}"
+     * will return a Map where the map has an entry with the access key is 'classname' and it's actual text value equals
+     * the value the user keyed into the GUI.
+     *
+     * @param  is text to decode into thie Map
+     * @return Map has entries where a key is given a value, often Strings, to hold in this variable
+     */
     protected Map getMap(String s) 
     {
         tempText = s;
@@ -62,13 +74,14 @@ public class Mapper
         int b = 0;
 
         def x = s.split('\\$')
-        say "... x.size()="+x.size()
+        say "... x.size()="+x.size();
+
         x.each{e-> 
             b+=1;
             say " and e=|${e}| (b=${b}) ";
             int k = (e.size() > 1) ? 1 : 0;
             String y = e.substring(0,k);
-            println " & y=|${y}| ";
+            say " & y=|${y}| ";
             if (y=='{')
             { 
                 say " has { "; 

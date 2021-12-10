@@ -52,8 +52,7 @@ public class F5 extends JFrame {
 	IO io = new IO();
 
     /** If we need to println audit log to work, this will be true */ 
-    boolean audit = true;
-
+    boolean audit = false;
 
     /**
      * A method to print an audit log if audit flag is true
@@ -82,13 +81,14 @@ public class F5 extends JFrame {
 		};
 
 		//quitbutton.setPreferredSize(new Dimension(20, 16));
-
-		quitbutton.setFont(new Font("Arial", Font.PLAIN, 7));
+		quitbutton.setFont(new Font("Arial", Font.BOLD, 8));
 		quitbutton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(stroke, "Quit");
 		quitbutton.getActionMap().put("Quit", quitAction);
 		quitbutton.setAction(quitAction); // when button mouse clicked
 		quitAction.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_ESCAPE);
 		add(quitbutton);
+
+		//KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, KeyEvent.SHIFT_MASK);
 
 		//setLayout(new BoxLayout(BoxLayout.X_AXIS));  //this, BoxLayout.X_AXIS));
 		//setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -136,14 +136,29 @@ public class F5 extends JFrame {
 		//mybutton.setBorder(new LineBorder(Color.BLACK,2));
 		mybutton.setBackground(Color.CYAN)
 
-
 		mybutton.addMouseListener(new MouseAdapter() 
 		{
             public void mouseEntered(MouseEvent mEvt) 
             {
-		    	mybutton.setToolTipText("lakshman");
+        		mybutton.setToolTipText("Press ${key} function key to copy to Clipboard");
+		    	//mybutton.setToolTipText("lakshman");
     		}
 		});
+
+
+		Action editAction = new AbstractAction("${key}") {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				say("\nEDITAction run when SHIFT+VK_${key} function key WAS pressed ...");
+        		String tx = io.getPayload(key);
+        		if (tx.length() > 0)
+        		{
+					setTitle("F5 -> ${key} function key has ${tx.length()} bytes");  
+					TemplateMaker obj = new TemplateMaker(key, tx);                    
+        		} // end of else
+
+			} // end of ActionPerformed
+		};
 
 
 		Action myAction = new AbstractAction("${key}") {
@@ -191,6 +206,11 @@ public class F5 extends JFrame {
 		// when function key pressed, this is done
 		mybutton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent."VK_${key}", 0), key);
 		mybutton.getActionMap().put(key, myAction);
+
+		// when function key pressed with SHIFT key down, this edit event is done
+		mybutton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent."VK_${key}", KeyEvent.SHIFT_MASK), "Edit");
+		mybutton.getActionMap().put("Edit", editAction);
+		
 		return mybutton;
 	} // end of makeButton
 

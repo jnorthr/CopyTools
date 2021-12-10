@@ -18,7 +18,7 @@ public class ExitAction extends AbstractAction
 
   public void actionPerformed(ActionEvent e)
   {
-    //JOptionPane.showMessageDialog(null, "Would have done the 'Cut' action.");
+    //JOptionPane.showMessageDialog(null, "Would have done the 'Exit' action.");
     System.exit(0);
   }
 }
