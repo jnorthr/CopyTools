@@ -1,6 +1,6 @@
 = CopyTools
 jnorthr <james.b.northrop@googlemail.com>
-v1.1
+v1.2
 :icons: font
 
 ''''
@@ -65,3 +65,7 @@ This is a class method to do the deed. Call this method with a Java/Groovy or JV
 Copier ck = new Copier();
 def what = ck.paste();
 ----
+
+== Other Modules
+
+Further groovy scripts
